@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+/*
+ * 디자인 토큰 — 크림 종이 위의 파란 폴더, 차콜 UI 카드
+ * 슬라이드는 1920×1080 고정 캔버스에 그리고 화면에 맞춰 통째로 확대·축소한다. 그래서 크기는 px.
+ *
+ * 색의 역할
+ *   cobalt  GL이 하는 일·강조 글자 (흰 글자를 올려도 5:1 이상)
+ *   azure   폴더 앞면·기회·성장 (글자는 올리지 않는다. 흰 글자 대비 2.6:1)
+ *   char    결론·체크리스트·승인 같은 "확정된 것"
+ *   pebble  지금 기준값·근거 숫자
+ *   go / wait / stop  근거 표시(확인·영상·미확인)와 하지 않는 일
+ */
+@theme {
+  --color-cream: #fbfaf0;
+  --color-cream-2: #f3f2e5;
+  --color-beige: #e8e7d9;
+  --color-beige-2: #dddccc;
+  --color-line: #dcdbce;
+  --color-rule: #a3a39c;
+
+  --color-ink: #2f3033;
+  --color-ink-2: #55575b;
+  --color-ink-3: #7d7f83;
+  --color-ink-4: #aaabad;
+
+  --color-char: #313234;
+  --color-char-2: #46474b;
+
+  --color-cobalt: #1d71b8;
+  --color-cobalt-2: #175e9b;
+  --color-cobalt-3: #124a7a;
+  --color-azure: #36a9e1;
+  --color-azure-2: #6cc0ea;
+  --color-azure-3: #a8d9f2;
+  --color-azure-4: #d4edf9;
+  --color-azure-5: #ebf6fc;
+
+  --color-pebble: #d1d3d4;
+  --color-pebble-2: #e4e5e5;
+
+  --color-go: #02ba7d;
+  --color-wait: #f5c400;
+  --color-stop: #ed3802;
+
+  --font-display: var(--font-funnel), var(--font-pretendard), "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+@theme inline {
+  --font-sans: var(--font-pretendard), "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #e9e8dc;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* 한국어는 어절 단위로 줄바꿈해야 읽기 쉽다 */
+.stage {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  letter-spacing: -0.012em;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* 흰 종이 카드 — 그림자 없이 선 하나로 */
+@utility card {
+  background: #ffffff;
+  border: 1.5px solid var(--color-line);
+  border-radius: 24px;
+}
+
+/* 차콜 UI 카드 */
+@utility card-dark {
+  background: var(--color-char);
+  border-radius: 24px;
+  color: #ffffff;
+}
+
+/* 폴더 탭 모양: 왼쪽 위만 둥글고 오른쪽은 비스듬히 내려간다 */
+@utility tab-shape {
+  clip-path: polygon(0 0, calc(100% - 34px) 0, 100% 100%, 0 100%);
+  border-top-left-radius: 16px;
+}
+
+/* iOS 느낌의 슬라이더 */
+.ios-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 34px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.ios-range:focus {
+  outline: none;
+}
+
+.ios-range::-webkit-slider-runnable-track {
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--range-fill, #36a9e1) 0%, var(--range-fill, #36a9e1) var(--range-pct, 50%), var(--range-track, #e4e5e5) var(--range-pct, 50%), var(--range-track, #e4e5e5) 100%);
+}
+
+.ios-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 32px;
+  height: 32px;
+  margin-top: -11px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 4px 10px rgba(0, 0, 0, 0.22);
+}
+
+.ios-range::-moz-range-track {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--range-track, #e4e5e5);
+}
+
+.ios-range::-moz-range-progress {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--range-fill, #36a9e1);
+}
+
+.ios-range::-moz-range-thumb {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 4px 10px rgba(0, 0, 0, 0.22);
+}
+
+.ios-range:focus-visible::-webkit-slider-thumb {
+  box-shadow:
+    0 0 0 4px rgba(54, 169, 225, 0.45),
+    0 4px 10px rgba(0, 0, 0, 0.22);
+}
